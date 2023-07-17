@@ -12,7 +12,7 @@
 
 
 
-<title>Getting Started</title>
+<title>Downloading Filtered Tableau Images with Super Sample Superstore</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -336,56 +336,55 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">Getting Started</h1>
+<h1 class="title toc-ignore">Downloading Filtered Tableau Images with
+Super Sample Superstore</h1>
 
 
 
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
-<p>The <code>vvtableau</code> package provides an interface for
-interacting with Tableau Server using the Tableau REST API. This
-vignette will walk you through the main functionalities of the package,
-demonstrating how to authenticate, retrieve information, and perform
-various operations on Tableau Server.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(vvtableau)</span></code></pre></div>
+<p>This vignette demonstrates the usage of the
+<code>download_filtered_tableau_image</code> function in the R package.
+We’ll use the Super Sample Superstore example in Tableau to showcase how
+to download filtered images by filtering on various combinations of
+region and category.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(vvtableau)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co"># Authenticate on the Tableau Server.</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a>tableau <span class="ot">&lt;-</span> <span class="fu">authenticate_server</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="at">server =</span> <span class="st">&quot;https://tableau.server.com&quot;</span>,</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="at">username =</span> <span class="st">&quot;your_username&quot;</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="at">password =</span> <span class="st">&quot;your_password&quot;</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>)</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co"># Set the view ID for the Super Sample Superstore example view</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>view_id <span class="ot">&lt;-</span> <span class="st">&quot;super-sample-superstore-view-id&quot;</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co"># Set the path to save the downloaded images</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>path_to_save <span class="ot">&lt;-</span> <span class="st">&quot;path/to/save/images/&quot;</span></span></code></pre></div>
 </div>
-<div id="authentication" class="section level1">
-<h1>Authentication</h1>
-<p>To begin, you need to authenticate and establish a connection to
-Tableau Server. Use the authenticate_server() function to provide the
-server URL, your username, and password. Here’s an example:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>tableau <span class="ot">&lt;-</span> <span class="fu">authenticate_server</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="at">server =</span> <span class="st">&quot;https://tableau.server.com&quot;</span>,</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">username =</span> <span class="st">&quot;your_username&quot;</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">password =</span> <span class="st">&quot;your_password&quot;</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>)</span></code></pre></div>
-<p>When authentication has succeeded the <code>tableau</code> object can
-be passed to the Tableau REST API methods.</p>
-</div>
-<div id="retrieving-server-information" class="section level1">
-<h1>Retrieving Server Information</h1>
-<p>Once connected, you can retrieve various information about Tableau
-Server using the provided functions. Here is an example to retrieve the
-jobs on the server:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">get_server_jobs</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  tableau,</span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="at">page_size =</span> <span class="dv">300</span></span>
-<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>)</span></code></pre></div>
-</div>
-<div id="conclusion" class="section level1">
-<h1>Conclusion</h1>
-<p>This vignette covered the basic functionalities of the
-<code>vvtableau</code> package, including authentication, retrieving
-server information, publishing workbooks, managing users and groups, and
-downloading workbooks and views. For a complete list of functions and
-their parameters, please refer to the package documentation.</p>
-<p>Please note that this vignette serves as a brief introduction to the
-package and its capabilities. For more detailed instructions and
-examples, consult the package documentation and explore the individual
-function documentation.</p>
-<p>We hope you find the <code>vvtableau</code> package helpful in
-automating your Tableau workflows and enhancing your Tableau Server
-experience!</p>
+<div id="download-filtered-images" class="section level1">
+<h1>Download Filtered Images</h1>
+<p>Let’s download images for different combinations of region and
+category filters.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Create a dataframe with the filter values for each combination</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>filter_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">region =</span> <span class="fu">c</span>(<span class="st">&quot;West&quot;</span>, <span class="st">&quot;East&quot;</span>, <span class="st">&quot;Central&quot;</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">category =</span> <span class="fu">c</span>(<span class="st">&quot;Furniture&quot;</span>, <span class="st">&quot;Technology&quot;</span>, <span class="st">&quot;Office Supplies&quot;</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>)</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="fu">download_filtered_tableau_image</span>(tableau, filter_df, view_id, path_to_save)</span></code></pre></div>
+<p>For this example, the function will iterate over each row of the
+dataframe and download the filtered images for each combination of
+region and category. In this case, it will download images for the
+following combinations:</p>
+<ul>
+<li><p>“West” region, “Furniture” category</p></li>
+<li><p>“East” region, “Technology” category</p></li>
+<li><p>“Central” region, “Office Supplies” category</p></li>
+</ul>
+<p>You can customize the <code>filter_df</code> dataframe to include
+more combinations of region and category filters as needed.</p>
 </div>
 
 

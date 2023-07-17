@@ -11,32 +11,21 @@ authenticate_server(username, password, base_url, api_version = 3.4)
 
 \item{password}{The password on the Tableau server.}
 
-\item{base_url}{The base url of the Tableau server.}
+\item{base_url}{The base URL of the Tableau server.}
 
-\item{api_version}{The api version.}
+\item{api_version}{The API version to use (default: 3.4).}
 }
 \value{
-Dataframe containing authentication variables
+A list containing the authentication variables: base_url, token, site_id, and user_id.
 }
 \description{
-Authenticates the users and sets system variables.
-These are necessary in order to run the other Tableau REST Api methods.
-}
-\examples{
-\dontrun{
-# Authenticate on the Tableau server
-authenticate_server(username = "your_username",
-                    password = "your_password",
-                    base_url = "https://tableau.server.com",
-                    api_version = 3.4)
-}
-# Check the set system variables
-Sys.getenv("TABLEAU_API_TOKEN")
-Sys.getenv("TABLEAU_API_SITE_ID")
-Sys.getenv("TABLEAU_API_USER_ID")
+Authenticates the user on the Tableau server and retrieves the necessary authentication variables for running other Tableau REST API methods.
 }
 \seealso{
-Other tableau rest api: 
+Other Tableau REST API: 
+\code{\link{download_filtered_tableau_image}()},
+\code{\link{download_tableau_crosstab_excel}()},
+\code{\link{download_tableau_data}()},
 \code{\link{download_workbooks_server_pdf}()},
 \code{\link{download_workbooks_server_powerpoint}()},
 \code{\link{download_workbooks_server}()},
@@ -48,8 +37,9 @@ Other tableau rest api:
 \code{\link{get_server_projects}()},
 \code{\link{get_server_refresh_tasks}()},
 \code{\link{get_server_schedules}()},
+\code{\link{get_server_user_favorites}()},
 \code{\link{get_server_users}()},
 \code{\link{get_server_views}()},
 \code{\link{get_server_workbooks}()}
 }
-\concept{tableau rest api}
+\concept{Tableau REST API}

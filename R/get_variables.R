@@ -23,26 +23,27 @@ get_variables <- function(wb) {
   par_value <- XML::xpathSApply(proc[[xy]], "//workbook//datasource//column", XML::xmlGetAttr, "value")
 
   ## TEMP: get nested xml tags
-  utilFun <- function(x){
-
+  utilFun <- function(x) {
     attributess <- list(sapply(XML::xmlChildren(x, omitNodeTypes = "XMLInternalTextNode"), XML::xmlAttrs))
   }
 
   result <- XML::xpathApply(proc[[xy]], "//workbook//datasource//column", utilFun)
   nested_xml <- do.call(rbind, result)
 
-
-  df <- data.frame(var_name,
-                   nested_xml) %>%
+  df <- data.frame(
+    var_name,
+    nested_xml
+  ) %>%
     tidyr::unnest_wider(nested_xml) %>%
-    dplyr::mutate(role = var_role,
-                  ordinal = var_ordinal,
-                  caption = var_caption,
-                  datatype = var_data_type,
-                  format = var_format,
-                  thetype = var_type,
-                  thevalue = par_value)
+    dplyr::mutate(
+      role = var_role,
+      ordinal = var_ordinal,
+      caption = var_caption,
+      datatype = var_data_type,
+      format = var_format,
+      thetype = var_type,
+      thevalue = par_value
+    )
 
   return(df)
-
 }
