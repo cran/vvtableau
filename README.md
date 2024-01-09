@@ -12,22 +12,10 @@ The `vvtableau` package is an R interface for interacting with Tableau Server us
 Furthermore, methods are included to interact with Tableau desktop. These methods allow you to retrieve information from workbooks and to change them.
 
 
-## Breaking Changes
-
-**Important:** Starting from version 0.2.0, the `base_url`, `site_id`, and `token` arguments in server methods have been deprecated. Instead, you need to pass a `tableau` object returned by the `authenticate_tableau_server` function for authentication.
-
-Please refer to the documentation for more details on how to migrate your code and update your authentication process using the `tableau` object.
-
-
 ## Features
-- Authenticate and establish a connection to Tableau Server.
-- Check the existence of specific dashboard names.
-- Download filtered views from Tableau Server.
-- Download workbooks from Tableau Server in various formats (PDF, PowerPoint).
-- Retrieve information about actions, folders, hierarchies, parameters, revisions, server applications, datasources, groups, locations, projects, refresh tasks, schedules, users, views, and workbooks.
-- Retrieve Tableau data source information.
-- Manage variables and variable folders.
-- Retrieve workbook IDs and tabs.
+To see which functions are available in which section based on the Tableau REST API, helper functions, and functions that work with local Tableau workbooks using XML structure, please refer to the reference page of the vvtableau package. The [reference](https://vusaverse.github.io/vvtableau/reference/index.html) page provides a comprehensive list of functions available in the package, organized by category.
+
+Additionally, the package includes vignettes that provide more detailed information on how to use the functions in the package.
 
 ## Installation
 
