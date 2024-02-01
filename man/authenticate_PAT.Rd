@@ -5,23 +5,27 @@
 \title{Authenticate to Tableau Server or Tableau Cloud}
 \usage{
 authenticate_PAT(
-  pat_name,
-  pat_secret,
-  content_url,
-  base_url,
+  pat_name = tableau_pat_name(),
+  pat_secret = tableau_pat_secret(),
+  content_url = tableau_content_url(),
+  base_url = tableau_base_url(),
   api_version = 3.4
 )
 }
 \arguments{
-\item{pat_name}{The name of the personal access token (PAT).}
+\item{pat_name}{The name of the personal access token (PAT). Defaults to the `TABLEAU_PAT_NAME` environment variable.}
 
-\item{pat_secret}{The secret of the personal access token (PAT).}
+\item{pat_secret}{The secret of the personal access token (PAT). Defaults to the `TABLEAU_PAT_SECRET` environment variable.}
 
-\item{content_url}{The URL of the content to authenticate. For Tableau Server, this is typically the URL of the Tableau server followed by the site ID. For Tableau Cloud, this is usually the URL of the Tableau cloud workbook.}
+\item{content_url}{The URL of the content to authenticate. Defaults to the `TABLEAU_CONTENT_URL` environment variable.
+For Tableau Server, this is typically the URL of the Tableau server followed by the site ID. For Tableau Cloud, this is usually the URL of the Tableau cloud workbook.}
 
-\item{base_url}{The base URL of the Tableau server or Tableau cloud. For Tableau Server, this is usually the URL of the Tableau server. For Tableau Cloud, this is usually the URL of the Tableau cloud, and it must contain the pod name, such as 10az, 10ay, or us-east-1. For example, the base URL to sign in to a site in the 10ay pod would be: https://10ay.online.tableau.com.}
+\item{base_url}{The base URL of the Tableau server or Tableau cloud. Defaults to the `TABLEAU_BASE_URL` environment variable.
+For Tableau Server, this is usually the URL of the Tableau server. For Tableau Cloud, this is usually the URL of the Tableau cloud,
+and it must contain the pod name, such as 10az, 10ay, or us-east-1.
+For example, the base URL to sign in to a site in the 10ay pod would be: https://10ay.online.tableau.com.}
 
-\item{api_version}{the api version to use. Default is 3.4}
+\item{api_version}{The API version to use. Default is 3.4.}
 }
 \value{
 A list containing the base URL, the access token, the site ID, and the user ID.
@@ -29,3 +33,42 @@ A list containing the base URL, the access token, the site ID, and the user ID.
 \description{
 This function authenticates to a Tableau Server or Tableau Cloud using a personal access token (PAT).
 }
+\seealso{
+Other Tableau REST API: 
+\code{\link{add_tags_to_view}()},
+\code{\link{add_tags_to_workbook}()},
+\code{\link{add_user_to_group}()},
+\code{\link{add_user_to_site}()},
+\code{\link{authenticate_server}()},
+\code{\link{create_group}()},
+\code{\link{delete_group}()},
+\code{\link{download_datasource}()},
+\code{\link{download_filtered_tableau_image}()},
+\code{\link{download_tableau_crosstab_excel}()},
+\code{\link{download_tableau_data}()},
+\code{\link{download_workbooks_server_pdf}()},
+\code{\link{download_workbooks_server_powerpoint}()},
+\code{\link{download_workbooks_server}()},
+\code{\link{get_groups_for_user}()},
+\code{\link{get_mobile_security_settings}()},
+\code{\link{get_server_connected_apps}()},
+\code{\link{get_server_datasources}()},
+\code{\link{get_server_groups}()},
+\code{\link{get_server_info}()},
+\code{\link{get_server_jobs}()},
+\code{\link{get_server_projects}()},
+\code{\link{get_server_refresh_tasks}()},
+\code{\link{get_server_schedules}()},
+\code{\link{get_server_user_favorites}()},
+\code{\link{get_server_users}()},
+\code{\link{get_server_views}()},
+\code{\link{get_server_workbooks}()},
+\code{\link{get_table_assets}()},
+\code{\link{get_users_in_group}()},
+\code{\link{query_user_on_site}()},
+\code{\link{remove_user_from_group}()},
+\code{\link{remove_user_from_site}()},
+\code{\link{update_group}()},
+\code{\link{update_user}()}
+}
+\concept{Tableau REST API}

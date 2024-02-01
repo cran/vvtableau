@@ -4,14 +4,19 @@
 \alias{authenticate_server}
 \title{Authenticate on the Tableau server.}
 \usage{
-authenticate_server(username, password, base_url, api_version = 3.4)
+authenticate_server(
+  username = tableau_username(),
+  password = tableau_password(),
+  base_url = tableau_base_url(),
+  api_version = 3.4
+)
 }
 \arguments{
-\item{username}{The username on the Tableau server.}
+\item{username}{The username on the Tableau server. Defaults to the `TABLEAU_USERNAME` environment variable.}
 
-\item{password}{The password on the Tableau server.}
+\item{password}{The password on the Tableau server. Defaults to the `TABLEAU_PASSWORD` environment variable.}
 
-\item{base_url}{The base URL of the Tableau server.}
+\item{base_url}{The base URL of the Tableau server. Defaults to the `TABLEAU_BASE_URL` environment variable.}
 
 \item{api_version}{The API version to use (default: 3.4).}
 }
@@ -27,7 +32,10 @@ Other Tableau REST API:
 \code{\link{add_tags_to_workbook}()},
 \code{\link{add_user_to_group}()},
 \code{\link{add_user_to_site}()},
+\code{\link{authenticate_PAT}()},
 \code{\link{create_group}()},
+\code{\link{delete_group}()},
+\code{\link{download_datasource}()},
 \code{\link{download_filtered_tableau_image}()},
 \code{\link{download_tableau_crosstab_excel}()},
 \code{\link{download_tableau_data}()},
@@ -35,6 +43,7 @@ Other Tableau REST API:
 \code{\link{download_workbooks_server_powerpoint}()},
 \code{\link{download_workbooks_server}()},
 \code{\link{get_groups_for_user}()},
+\code{\link{get_mobile_security_settings}()},
 \code{\link{get_server_connected_apps}()},
 \code{\link{get_server_datasources}()},
 \code{\link{get_server_groups}()},

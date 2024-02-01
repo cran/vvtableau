@@ -6,7 +6,8 @@
 \usage{
 get_server_views(
   tableau,
-  api_version = "3.4",
+  api_version = 3.4,
+  page_number = 1,
   page_size = 100,
   include_statistics = TRUE,
   include_metadata = FALSE
@@ -16,6 +17,8 @@ get_server_views(
 \item{tableau}{A list containing the Tableau authentication variables: `base_url`, `token`, `user_id`, and `site_id`.}
 
 \item{api_version}{The API version to use (default: 3.4).}
+
+\item{page_number}{The page number of the results to retrieve (default: 1).}
 
 \item{page_size}{The number of views to retrieve per page (default: 100).}
 
@@ -35,8 +38,11 @@ Other Tableau REST API:
 \code{\link{add_tags_to_workbook}()},
 \code{\link{add_user_to_group}()},
 \code{\link{add_user_to_site}()},
+\code{\link{authenticate_PAT}()},
 \code{\link{authenticate_server}()},
 \code{\link{create_group}()},
+\code{\link{delete_group}()},
+\code{\link{download_datasource}()},
 \code{\link{download_filtered_tableau_image}()},
 \code{\link{download_tableau_crosstab_excel}()},
 \code{\link{download_tableau_data}()},
@@ -44,6 +50,7 @@ Other Tableau REST API:
 \code{\link{download_workbooks_server_powerpoint}()},
 \code{\link{download_workbooks_server}()},
 \code{\link{get_groups_for_user}()},
+\code{\link{get_mobile_security_settings}()},
 \code{\link{get_server_connected_apps}()},
 \code{\link{get_server_datasources}()},
 \code{\link{get_server_groups}()},
