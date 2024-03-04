@@ -1,7 +1,7 @@
 Package: vvtableau
 Type: Package
 Title: R Interface for 'Tableau' Services
-Version: 0.5.0
+Version: 0.6.0
 Authors@R: 
   c(person(given = "Tomer", 
            family = "Iwan", 
@@ -29,10 +29,10 @@ Imports: data.table, dplyr, httr, jsonlite, magrittr, purrr, stringr,
 Suggests: knitr, rmarkdown
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2024-02-01 11:56:37 UTC; tin900
+Packaged: 2024-03-04 07:54:16 UTC; tin900
 Author: Tomer Iwan [aut, cre],
   Ruben Korvinus [ctb],
   VU Analytics [cph]
 Maintainer: Tomer Iwan <t.iwan@vu.nl>
 Repository: CRAN
-Date/Publication: 2024-02-01 12:20:03 UTC
+Date/Publication: 2024-03-04 08:10:02 UTC
