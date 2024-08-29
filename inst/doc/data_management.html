@@ -12,7 +12,7 @@
 
 
 
-<title>Downloading Filtered Tableau Images with Super Sample Superstore</title>
+<title>Monitoring Tableau Server Datasources</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -336,18 +336,10 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<h1 class="title toc-ignore">Downloading Filtered Tableau Images with
-Super Sample Superstore</h1>
+<h1 class="title toc-ignore">Monitoring Tableau Server Datasources</h1>
 
 
 
-<div id="introduction" class="section level1">
-<h1>Introduction</h1>
-<p>This vignette demonstrates the usage of the
-<code>download_filtered_tableau_image</code> function in the R package.
-We’ll use the Super Sample Superstore example in Tableau to showcase how
-to download filtered images by filtering on various combinations of
-region and category.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(vvtableau)</span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co"># Authenticate on the Tableau Server.</span></span>
@@ -355,36 +347,72 @@ region and category.</p>
 <span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>  <span class="at">server =</span> <span class="st">&quot;https://tableau.server.com&quot;</span>,</span>
 <span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="at">username =</span> <span class="st">&quot;your_username&quot;</span>,</span>
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="at">password =</span> <span class="st">&quot;your_password&quot;</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>)</span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co"># Set the view ID for the Super Sample Superstore example view</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>view_id <span class="ot">&lt;-</span> <span class="st">&quot;super-sample-superstore-view-id&quot;</span></span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co"># Set the path to save the downloaded images</span></span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>path_to_save <span class="ot">&lt;-</span> <span class="st">&quot;path/to/save/images/&quot;</span></span></code></pre></div>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>)</span></code></pre></div>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>The <code>vvtableau</code> package provides a set of functions to
+interact with Tableau Server, allowing you to automate various
+administrative tasks. In this vignette, we’ll focus on how to identify
+and monitor Tableau Server datasources that are not connected to any
+workbooks.</p>
 </div>
-<div id="download-filtered-images" class="section level1">
-<h1>Download Filtered Images</h1>
-<p>Let’s download images for different combinations of region and
-category filters.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Create a dataframe with the filter values for each combination</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>filter_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">region =</span> <span class="fu">c</span>(<span class="st">&quot;West&quot;</span>, <span class="st">&quot;East&quot;</span>, <span class="st">&quot;Central&quot;</span>),</span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">category =</span> <span class="fu">c</span>(<span class="st">&quot;Furniture&quot;</span>, <span class="st">&quot;Technology&quot;</span>, <span class="st">&quot;Office Supplies&quot;</span>)</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>)</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="fu">download_filtered_tableau_image</span>(tableau, filter_df, view_id, path_to_save)</span></code></pre></div>
-<p>For this example, the function will iterate over each row of the
-dataframe and download the filtered images for each combination of
-region and category. In this case, it will download images for the
-following combinations:</p>
+<div id="identifying-unused-datasources" class="section level1">
+<h1>Identifying Unused Datasources</h1>
+<p>To identify unused datasources on the Tableau Server, we’ll use the
+<code>get_server_datasources()</code> function to retrieve a list of all
+datasources, and then filter out those that are not connected to any
+workbooks.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="co"># Retrieve all datasources from Tableau Server</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>all_datasources <span class="ot">&lt;-</span> <span class="fu">get_server_datasources</span>(tableau_server)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co"># Filter out datasources that are not connected to any workbooks</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>unused_datasources <span class="ot">&lt;-</span> all_datasources <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="fu">filter</span>(connectedWorkbooksCount <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="fu">select</span>(project_name, name, size)</span></code></pre></div>
+<p>In this example, we:</p>
 <ul>
-<li><p>“West” region, “Furniture” category</p></li>
-<li><p>“East” region, “Technology” category</p></li>
-<li><p>“Central” region, “Office Supplies” category</p></li>
+<li>Retrieve all datasources from the Tableau Server using the
+<code>get_server_datasources()</code> function.</li>
+<li>Filter out the datasources that have a connectedWorkbooksCount of 0,
+indicating that they are not connected to any workbooks.</li>
+<li>Select the relevant columns (project name, datasource name, and
+size).</li>
 </ul>
-<p>You can customize the <code>filter_df</code> dataframe to include
-more combinations of region and category filters as needed.</p>
+</div>
+<div id="notifying-administrators" class="section level1">
+<h1>Notifying Administrators</h1>
+<p>Once you have the list of unused datasources, you can use your
+preferred method to notify the administrators. This could be sending an
+email, posting a message in a chat channel, or any other communication
+method. Here’s an example of how you could send a message to a Slack
+channel:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">library</span>(slackr)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="do">## Assuming you have authenticated with Slack using slackr_setup() and have access to the channel.</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>slackr<span class="sc">::</span><span class="fu">slackr</span>(<span class="at">channel =</span> <span class="st">&quot;#tableau-notifications&quot;</span>,</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>               <span class="at">text =</span> <span class="st">&quot;The following datasources on the server have no connection to a workbook. Data sorted by size (in MB):&quot;</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>slackr<span class="sc">::</span><span class="fu">slackr_table</span>(unused_datasources,</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>                    <span class="at">channel =</span> <span class="st">&quot;#tableau-notifications&quot;</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>                    <span class="at">quote =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>slackr<span class="sc">::</span><span class="fu">slackr</span>(<span class="at">channel =</span> <span class="st">&quot;#tableau-notifications&quot;</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>               <span class="at">text =</span> <span class="fu">paste0</span>(<span class="st">&quot;This amounts to approximately &quot;</span>, <span class="fu">sum</span>(<span class="fu">as.integer</span>(unused_datasources<span class="sc">$</span>size)), <span class="st">&quot;MB on the server.&quot;</span>))</span></code></pre></div>
+<p>This code will send a message to the
+<code>#tableau-notifications</code> Slack channel, followed by a table
+of the unused datasources sorted by size. Finally, it will send a
+message with the total size of the unused datasources.</p>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p>The <code>vvtableau</code> package provides a convenient way to
+automate the process of identifying unused Tableau Server datasources
+and notifying the appropriate administrators. By using this package, you
+can ensure that your Tableau Server is being used efficiently and that
+unnecessary datasources are properly managed.</p>
 </div>
 
 

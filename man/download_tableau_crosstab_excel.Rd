@@ -23,6 +23,10 @@ download_tableau_crosstab_excel(
 \description{
 Downloads the crosstab data from a Tableau view in Excel format.
 }
+\note{
+If a crosstab is exported from a dashboard, data from only the first view in the dashboard will appear in the .xlsx file.
+Downloads of data from story dashboards are not supported at this time.
+}
 \seealso{
 Other Tableau REST API: 
 \code{\link{add_tags_to_view}()},
@@ -36,9 +40,9 @@ Other Tableau REST API:
 \code{\link{download_datasource}()},
 \code{\link{download_filtered_tableau_image}()},
 \code{\link{download_tableau_data}()},
+\code{\link{download_workbooks_server}()},
 \code{\link{download_workbooks_server_pdf}()},
 \code{\link{download_workbooks_server_powerpoint}()},
-\code{\link{download_workbooks_server}()},
 \code{\link{get_groups_for_user}()},
 \code{\link{get_mobile_security_settings}()},
 \code{\link{get_server_connected_apps}()},
